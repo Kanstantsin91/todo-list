@@ -24,8 +24,6 @@ export default class  ItemAddForm extends React.Component {
 
     render(){
         
-        // const{ inputText } = this.state.inputText;
-        
         return (
             <div className="ItemAddForm">
                 <form onSubmit={this.onSubmit}>

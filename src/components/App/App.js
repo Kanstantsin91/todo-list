@@ -19,8 +19,10 @@ state = {
     {text: 'Learn JS', important: false, done: false, id:3}  
   ],
 
-  filter: 'Active' // all || active || done
+  filter: 'Active', // all || active || done
+  search: ''
 }
+
 
 
 filter = (arr, filter) =>{
@@ -36,6 +38,19 @@ filter = (arr, filter) =>{
   }
 }
 
+onSearchChange=(searchText)=>{
+
+  this.setState((prevState)=>{
+
+    const newArr = prevState.todoData.filter((el)=>el.text.toLowerCase().includes(searchText.toLowerCase()));
+    
+    return({
+      search:searchText,
+      searchArr:newArr
+    });
+  });
+
+}
 
 onDelete = (id)=>{
   this.setState((prevState)=>{
@@ -110,17 +125,20 @@ onFilterChange = (filter)=>{
 
 render(){
 
-  const{ todoData, filter} = this.state;
+  const{ todoData, filter, search, searchArr } = this.state;
 
   const doneQuantity = this.state.todoData.filter((el)=>el.done).length;
   const todoQuantity = this.state.todoData.length - doneQuantity;
-  const visibleTodos = this.filter(todoData, filter)
+  const visibleTodos = search !=='' ? this.filter(searchArr, filter) : this.filter(todoData, filter);
 
+  
     return (
       <div className="App">
         <Header  done={doneQuantity} todo={todoQuantity}/>
         <div className="line">
-        <SearchBlock />
+        <SearchBlock
+          onSearchChange={this.onSearchChange}
+          />
         <Filter
           filter={filter}
           onFilterChange={this.onFilterChange}
