@@ -19,10 +19,9 @@ state = {
     {text: 'Learn JS', important: false, done: false, id:3}  
   ],
 
-  filter: 'Active', // all || active || done
-  search: ''
+  filter: 'Active',    // All || Active || Done
+  search: ''  //type string
 }
-
 
 
 filter = (arr, filter) =>{
